@@ -34,6 +34,23 @@ app.get('/median', function(request, response) {
     value: median}});
 });
 
+app.get('/mode', function(request, response) {
+  let nums = request.query.nums.split(',');
+  
+  let countMap = {};
+  nums.forEach(num => {
+    countMap[num] = (countMap[num] || 0) + 1;
+  });
+  
+  let maxCount = Math.max(...Object.values(countMap));
+  let mode = Object.keys(countMap).find(key => countMap[key] === maxCount);
+  
+  console.log(mode);
+  return response.json({response: {
+    operation: 'mode',
+    value: mode}});
+});
+
 app.listen(3000, function(){
   console.log('App on port 3000');
 })
