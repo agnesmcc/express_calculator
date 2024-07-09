@@ -17,6 +17,23 @@ app.get('/mean', function(request, response) {
     value: mean}});
 });
 
+app.get('/median', function(request, response) {
+  let nums = request.query.nums.split(',');
+  
+  nums.sort((a, b) => a - b);
+  let median;
+  if (nums.length % 2 === 0) {
+    median = (nums[nums.length / 2] + nums[nums.length / 2 - 1]) / 2;
+  } else {
+    median = nums[Math.floor(nums.length / 2)];
+  }
+
+  console.log(median);
+  return response.json({response: {
+    operation: 'median',
+    value: median}});
+});
+
 app.listen(3000, function(){
   console.log('App on port 3000');
 })
